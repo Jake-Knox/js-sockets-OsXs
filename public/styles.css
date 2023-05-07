@@ -12,7 +12,7 @@ font-family: 'VT323', monospace;
 font-family: 'Zen Tokyo Zoo', cursive; */
 
 *{
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 body{
@@ -43,16 +43,20 @@ body{
 }
 
 #top{
-
     height: 20vh;
     width: 100%;
 
+    border: 1px solid black; 
+    border-radius: 7px; 
+    padding: 5px;
 
-}
-
-#middle{
+    display: flex;
+    flex-direction: row;
 
     
+}
+
+#middle{    
     width: 100%;
 
     display: flex;
@@ -81,6 +85,16 @@ h1{
     width: 100%;
     text-align: center;
 
+}
+
+.top-card{
+    width: 50%;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+#active-games{
+    list-style-type: none;
 }
 
 #game-board{
