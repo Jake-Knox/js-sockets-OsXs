@@ -19,6 +19,7 @@ body{
     font-family: 'Inter', sans-serif;
     background-color: beige;
 
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,36 +29,51 @@ body{
 
 #container{
 
-    width: 100%;
-    min-width: 600px;
+    /* border: 1px solid red; */
+
+    width: 600px;
+    /* min-width: 600px; */
 
     
 }
 
 #header{
     height: 10vh;
+    width: 100%;
 }
 
 #top{
 
-    height: 40vh;;
+    height: 20vh;
+    width: 100%;
+
 
 }
 
 #middle{
 
-    height: 40vh;;
+    
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 
 }
 
 #bottom{
 
-    height: 40vh;;
+    height: 20vh;
+    width: 100%;
+
 
 }
 
 #footer{
     height: 10vh;
+    width: 100%;
+
 }
 
 h1{
@@ -65,4 +81,40 @@ h1{
     width: 100%;
     text-align: center;
 
+}
+
+#game-board{
+
+    height: 500px;
+    width: 500px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items:  center;
+    justify-content: space-around;
+
+}
+
+.game-square{
+    height: 160px;
+    width: 160px;
+    border: 1px solid black;
+}
+#buttons{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+#btn-back{
+    height: 50px;
+    width: 150px;
+    background-color: rgb(200, 115, 115);
+}
+#btn-submit{
+    height: 50px;
+    width: 150px;
+    background-color: rgb(115, 200, 115);
 }
