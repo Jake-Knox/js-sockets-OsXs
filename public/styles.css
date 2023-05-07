@@ -12,25 +12,18 @@ font-family: 'VT323', monospace;
 font-family: 'Zen Tokyo Zoo', cursive; */
 
 *{
-    font-family: 'Inter', sans-serif;
-
     border: 1px solid red;
 }
 
 body{
-
+    font-family: 'Inter', sans-serif;
     background-color: beige;
-    border: 3px solid black;
-
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
    
-
-    
-
 }
 
 #container{
@@ -39,6 +32,32 @@ body{
     min-width: 600px;
 
     
+}
+
+#header{
+    height: 10vh;
+}
+
+#top{
+
+    height: 40vh;;
+
+}
+
+#middle{
+
+    height: 40vh;;
+
+}
+
+#bottom{
+
+    height: 40vh;;
+
+}
+
+#footer{
+    height: 10vh;
 }
 
 h1{
