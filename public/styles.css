@@ -1,0 +1,49 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Carrois+Gothic&family=Caveat&family=Cinzel&family=Domine&family=Inter&family=Open+Sans:wght@300&family=Orbitron&family=Unbounded:wght@300&family=VT323&family=Zen+Tokyo+Zoo&display=swap');
+/* 
+font-family: 'Carrois Gothic', sans-serif;
+font-family: 'Caveat', cursive;
+font-family: 'Cinzel', serif;
+font-family: 'Domine', serif;
+font-family: 'Open Sans', sans-serif;
+font-family: 'Orbitron', sans-serif;
+font-family: 'Unbounded', cursive;
+font-family: 'VT323', monospace;
+font-family: 'Zen Tokyo Zoo', cursive; */
+
+*{
+    font-family: 'Inter', sans-serif;
+
+    border: 1px solid red;
+}
+
+body{
+
+    background-color: beige;
+    border: 3px solid black;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+
+    
+
+}
+
+#container{
+
+    width: 100%;
+    min-width: 600px;
+
+    
+}
+
+h1{
+
+    width: 100%;
+    text-align: center;
+
+}
