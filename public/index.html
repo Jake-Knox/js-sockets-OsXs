@@ -15,16 +15,28 @@
         <div id="top">
             <div id="top-left" class="top-card">
                 <h3>Create Game</h3>
+                <form id="form-new" action="">
+                    <input type="text" id="form-input" autocomplete="off">
+                    <button>Create</button>
+                </form>
             </div>
             <div id="top-right" class="top-card">
-                <h3>Games</h3>
-                <ul id="active-games">                
-                </ul>
+                <div>
+                    <h3>Games</h3>
+                    <button id="btn-refresh"></button>
+                </div>                
+                <div id="active-games">                
+                </div>
             </div>
             
 
         </div>
         <div id="middle">
+            <div id="game-info">
+                <div id="p1">P1: </div>
+                <div id=""> </div>
+                <div id="p2">P2: </div>                
+            </div>
             <div id="game-board">
                 <div id="" class="game-square"></div>
                 <div id="" class="game-square"></div>

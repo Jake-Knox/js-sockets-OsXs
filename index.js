@@ -36,11 +36,20 @@ io.on('connection', (socket) => {
       console.log('user disconnected');
     });
 
+    socket.on('new room', (room) => {
+      console.log("new room created: " + room);
+      console.log("user " + socket.id + " joining: " + room);
+      socket.join(room);
+      // io.to(room).emit("user joined", room);
+    });
+
     socket.on('join room', (room) => {
-        console.log("user joining: " + room);
-        socket.join(room);
-        // io.to(room).emit("user joined", room);
-      });
+      console.log("user joining: " + room);
+      socket.join(room);
+      // io.to(room).emit("user joined", room);
+    });
+
+    
 
 });
 server.listen(3000, () => {

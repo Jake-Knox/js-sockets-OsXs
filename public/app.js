@@ -3,7 +3,27 @@ var socket = io();
 let myRooms = []
 
 // document variables
+
+const form = document.getElementById('form-new');
+const input = document.getElementById('form-input');
+
 const activeGames = document.getElementById("active-games");
+
+
+
+// event listeners
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (input.value) {
+        console.log("form submit");
+    socket.emit('new room', input.value);
+    input.value = '';
+    }
+});
+
+
+
 
 
 socket.on('get rooms', function(games) {
@@ -16,7 +36,7 @@ socket.on('get rooms', function(games) {
         console.log(myRooms[i].p2)
         console.log(myRooms[i].moves)
 
-        const newGame = document.createElement("li");
+        const newGame = document.createElement("div");
         newGame.textContent = (`Room: ${myRooms[i].room} | P1: ${myRooms[i].p1} | P2: ${myRooms[i].p2} | moves: ${myRooms[i].moves}`)
         activeGames.appendChild(newGame);
     }
