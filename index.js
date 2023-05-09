@@ -57,10 +57,18 @@ const joinRoom = (name, userID) => {
       }
     }   
   }
-
-
-
 }
+
+const updateRoom = (room) => {
+  for(let i = 0; i < games.length; i ++)
+  {
+    if(games[i].room == room)
+    {
+      io.to(room).emit("update room", games[i]);
+    }
+  }
+}
+
 
 io.on('connection', (socket) => {
     console.log('user connected, id: ' + socket.id);
@@ -116,17 +124,16 @@ io.on('connection', (socket) => {
       console.log("user " + socket.id + " joining: " + room);
       joinRoom(room, socket.id);
       socket.join(room);
+      updateRoom(room);
 
-      console.log(`there are ${games.length} current rooms`);
     });
 
     socket.on('join room', (room) => {
-      console.log("user " + socket.id + " joining: " + room);
       
+      console.log("user " + socket.id + " joining: " + room);      
       joinRoom(room, socket.id);
-
       socket.join(room);  
-      
+      updateRoom(room);
       // console.log(games);
     });
 

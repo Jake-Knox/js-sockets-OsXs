@@ -5,7 +5,7 @@ const chars = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"]
 
 let myName = "placeholder_name";
 let myRooms = [];
-
+let myGame = [];
 
 // document variables
 
@@ -19,7 +19,9 @@ const inputJoin = document.getElementById('form-join-input');
 const refreshGame = document.getElementById("btn-refresh");
 const activeGames = document.getElementById("active-games");
 
-
+const textP1 = document.getElementById("p1");
+const textMoves = document.getElementById("moves");
+const textP2 = document.getElementById("p2");
 
 
 // event listeners
@@ -74,14 +76,18 @@ socket.on('get rooms', function(games) {
 
 socket.on('update room', function(newDetails) {
 
-    for (let i = 0; i < myRooms.length; i++) {
-        // logging game room info
-        // console.log(newDetails[i].room)
-        // console.log(newDetails[i].p1)
-        // console.log(newDetails[i].p2)
-        // console.log(newDetails[i].moves)
-        console.log(newDetails[i].board)
-    }
+    myGame = newDetails;
+    // logging game room info
+    // console.log(newDetails[i].room)
+    // console.log(newDetails[i].p1)
+    // console.log(newDetails[i].p2)
+    // console.log(newDetails[i].moves)
+    console.log(myGame.board);
+
+    textP1.textContent = myGame.p1;
+    textMoves.textContent = (`${myGame.moves}/9`);
+    textP2.textContent = myGame.p2;
+
 
 });
 
