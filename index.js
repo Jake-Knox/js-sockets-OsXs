@@ -72,6 +72,7 @@ const updateRoom = (room) => {
 
 io.on('connection', (socket) => {
     console.log('user connected, id: ' + socket.id);
+    io.to(socket.id).emit("get id", socket.id);
 
     // send user list of active rooms
     socket.on('client request rooms', () => {
@@ -129,7 +130,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('join room', (room) => {
-      
+
       console.log("user " + socket.id + " joining: " + room);      
       joinRoom(room, socket.id);
       socket.join(room);  
