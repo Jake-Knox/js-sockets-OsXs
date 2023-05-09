@@ -14,13 +14,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // game vars
 games = [];
 
-// let testGame = {
-//     room: "test-room",
-//     p1: "",
-//     p2: "",
-//     moves: 0,
-// }
-// games.push(testGame)
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
@@ -77,8 +70,29 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
       console.log(`user disconnected, id: ${socket.id}`);
 
-      // disconnect them from server game data?
-      // check for if they are in a game on connect?
+      // if user disconnects, remove them from server side game data
+      // if no users are connected to game, remove game from data
+      for(let i = 0; i < games.length; i++)
+      {
+        if(games[i].p1 == socket.id)
+        {
+          games[i].p1 = "";
+        }
+        else if(games[i].p2 == socket.id)
+        {
+          games[i].p2 = "";
+        }
+        
+        if(games[i].p1 == "" && games[i].p2 == "")
+        {
+          // delete from server game list
+          const index = games.indexOf(games[i]);
+          if (index > -1) {
+            games.splice(index, 1); // 2nd parameter means remove one item only
+          }
+          console.log(games)
+        }
+      }
 
     });
 
@@ -94,7 +108,6 @@ io.on('connection', (socket) => {
       console.log("user " + socket.id + " joining: " + room);
       socket.join(room);      
       joinRoom(room, socket.id)
-      // io.to(room).emit("user joined", room);
     });
 
     socket.on('room data', (room) => {      

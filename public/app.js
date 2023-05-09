@@ -4,30 +4,52 @@ let myRooms = []
 
 // document variables
 
-const form = document.getElementById('form-new');
-const input = document.getElementById('form-input');
+const formNew = document.getElementById('form-new');
+const inputNew = document.getElementById('form-new-input');
 
+const formJoin = document.getElementById('form-join');
+const inputJoin = document.getElementById('form-join-input');
+
+
+const refreshGame = document.getElementById("btn-refresh");
 const activeGames = document.getElementById("active-games");
+
 
 
 
 // event listeners
 
-form.addEventListener('submit', function(e) {
+formNew.addEventListener('submit', function(e) {
     e.preventDefault();
-    if (input.value) {
+    if (inputNew.value) {
         // console.log("form submit");
-    socket.emit('new room', input.value);
-    input.value = '';
+    socket.emit('new room', inputNew.value);
+    inputNew.value = '';
 
     socket.emit('client request rooms')
     }
 });
 
+formJoin.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (inputJoin.value) {
+        // console.log("form submit");
+    socket.emit('join room', inputJoin.value);
+    inputJoin.value = '';
+
+    socket.emit('client request rooms')
+    }
+});
+
+refreshGame.addEventListener('click', function() {
+    socket.emit('client request rooms');
+});
 
 
 socket.on('get rooms', function(games) {
     myRooms = games;
+
+    activeGames.innerHTML = "";
 
     for (let i = 0; i < myRooms.length; i++) {
         // logging game room info
@@ -37,7 +59,9 @@ socket.on('get rooms', function(games) {
         // console.log(myRooms[i].moves)
 
         const newGame = document.createElement("div");
-        newGame.textContent = (`Room: ${myRooms[i].room} | P1: ${myRooms[i].p1} | P2: ${myRooms[i].p2} | moves: ${myRooms[i].moves}`)
+        // newGame.textContent = (`Room: ${myRooms[i].room} | P1: ${myRooms[i].p1} | P2: ${myRooms[i].p2} | moves: ${myRooms[i].moves}`)
+        newGame.textContent = (`${myRooms[i].room} | ${myRooms[i].p1} | ${myRooms[i].p2} | ${myRooms[i].moves}`)
+
         activeGames.appendChild(newGame);
     }
     
@@ -59,4 +83,4 @@ socket.on('update room', function(newDetails) {
 
 // testing stuff to run when the page loads
 // socket.emit('join room', "test-room"); 
-socket.emit('client request rooms')
+// socket.emit('client request rooms')
