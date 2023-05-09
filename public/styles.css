@@ -109,6 +109,10 @@ h1{
     margin-left: 15px;
     background-image: url("/images/refresh.png");
 }
+#btn-refresh:active {
+    transform: scale(0.98);
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.05);
+}
 
 #active-games{
     height: 65%;

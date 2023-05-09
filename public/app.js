@@ -76,13 +76,15 @@ socket.on('get rooms', function(games) {
 
 socket.on('update room', function(newDetails) {
 
+    console.log("updating game details");
+
     myGame = newDetails;
     // logging game room info
     // console.log(newDetails[i].room)
     // console.log(newDetails[i].p1)
     // console.log(newDetails[i].p2)
     // console.log(newDetails[i].moves)
-    console.log(myGame.board);
+    // console.log(myGame.board);
 
     textP1.textContent = myGame.p1;
     textMoves.textContent = (`${myGame.moves}/9`);
