@@ -12,7 +12,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // run nodemon updating server -> nodemon ./index.js localhost 3000
 
 // game vars
-games = [];
+let games = [];
+let clients = [];
 
 
 app.get('/', (req, res) => {
@@ -20,29 +21,31 @@ app.get('/', (req, res) => {
 });
 
 
-const createRoom = (name, userID) => {
+const createRoom = (name) => {
+
   let newGame = {
-      room: name,
-      p1: userID,
-      p2: "",
-      moves: 0,
+      room:name,
+      p1:"",
+      p2:"",
+      moves:0,
+      board:["","","","","","","","",""],
   }
   games.push(newGame)
 }
 
-const joinRoom = (room, userID) => {
+const joinRoom = (name, userID) => {
   
   for(let i = 0; i < games.length; i ++){
     //check for the correct room name
-    if(games[i].name == room)
+    if(games[i].room == name)
     {
       // check for if there is space in the lobby
-      if(games[i].p1 == "")
+      if(games[i].p1 == '')
       {
         // no p1, join game
         games[i].p1 = userID
       }
-      else if(games[i].p2 == "")
+      else if(games[i].p2 == '')
       {
         // no p2, join game
         games[i].p2 = userID
@@ -50,7 +53,7 @@ const joinRoom = (room, userID) => {
       else
       {
         // add feature to view a game without playing here?
-        console.log(`Game: ${room} is full. User ${userID} cannot join.`)
+        console.log(`Game: ${name} is full. User ${userID} cannot join.`)
       }
     }   
   }
@@ -90,24 +93,41 @@ io.on('connection', (socket) => {
           if (index > -1) {
             games.splice(index, 1); // 2nd parameter means remove one item only
           }
-          console.log(games)
+          // console.log(games)
         }
       }
 
     });
 
     socket.on('new room', (room) => {
+
+      for(let i = 0; i < games.length; i ++)
+      {
+        if(games[i].room == room)
+        {
+          console.log(`room ${room} already exists`)
+          // leave this func to stop new room being created
+          return;
+        }
+      }
       console.log("new room created: " + room);
-      console.log("user " + socket.id + " joining: " + room);
-      socket.join(room);
       createRoom(room, socket.id);
-      // io.to(room).emit("user joined", room);
+
+      console.log("user " + socket.id + " joining: " + room);
+      joinRoom(room, socket.id);
+      socket.join(room);
+
+      console.log(`there are ${games.length} current rooms`);
     });
 
     socket.on('join room', (room) => {
       console.log("user " + socket.id + " joining: " + room);
-      socket.join(room);      
-      joinRoom(room, socket.id)
+      
+      joinRoom(room, socket.id);
+
+      socket.join(room);  
+      
+      // console.log(games);
     });
 
     socket.on('room data', (room) => {      

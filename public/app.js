@@ -1,6 +1,11 @@
 var socket = io();
 
-let myRooms = []
+const chars = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"]
+
+
+let myName = "placeholder_name";
+let myRooms = [];
+
 
 // document variables
 
@@ -64,8 +69,6 @@ socket.on('get rooms', function(games) {
 
         activeGames.appendChild(newGame);
     }
-    
-
 
 });
 
@@ -73,14 +76,19 @@ socket.on('update room', function(newDetails) {
 
     for (let i = 0; i < myRooms.length; i++) {
         // logging game room info
-        console.log(newDetails[i].room)
-        console.log(newDetails[i].p1)
-        console.log(newDetails[i].p2)
-        console.log(newDetails[i].moves)
+        // console.log(newDetails[i].room)
+        // console.log(newDetails[i].p1)
+        // console.log(newDetails[i].p2)
+        // console.log(newDetails[i].moves)
+        console.log(newDetails[i].board)
     }
 
 });
 
+
+
+
 // testing stuff to run when the page loads
+
 // socket.emit('join room', "test-room"); 
 // socket.emit('client request rooms')
