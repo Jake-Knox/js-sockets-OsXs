@@ -142,7 +142,28 @@ h1{
     width: 160px;
     border: 3px solid rgb(0, 0, 0);
     border-radius: 5px;    
+
+    text-align: center;
+    line-height: 150px;
+    font-size: 5em;
 }
+
+.O-sel{
+    background-color: lightcoral;
+    }
+.X-sel{
+     background-color: lightblue;
+}
+.O-pick{
+background-color: red;
+}
+.X-pick{
+    background-color: blue;
+}
+.no-pick{
+    background-color: beige;
+}
+
 #buttons{
     width: 100%;
     display: flex;

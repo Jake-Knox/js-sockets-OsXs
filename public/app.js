@@ -78,31 +78,31 @@ for(let i = 0; i < gameBoardArr.length; i++)
             console.log("p1 click");
             for(let j = 0; j < gameBoardArr.length; j++)
             {
-                if(gameBoardArr[j].style.backgroundColor  != "gray")
+                if(gameBoardArr[j].classList.contains("locked") == false) 
                 {
-                    gameBoardArr[j].style.backgroundColor  = "white";
+                    gameBoardArr[j].classList = ("game-square no-pick");
                 }
             }
-            if(gameBoardArr[i].style.backgroundColor  != "gray")
+            if(gameBoardArr[i].classList.contains("locked") == false)
             {
-                gameBoardArr[i].style.backgroundColor  = "red";
+                gameBoardArr[i].classList = ("game-square O-sel");
                 selectedTile = gameBoardArr[i];                  
             } 
 
         }
-        else if(myName == myGame.p2)
+        else if(myName == myGame.p2 && pTurn == 1)
         {
             console.log("p2 click");
             for(let j = 0; j < gameBoardArr.length; j++)
             {
-                if(gameBoardArr[j].style.backgroundColor  != "gray")
+                if(gameBoardArr[j].classList.contains("locked") == false)
                 {
-                    gameBoardArr[j].style.backgroundColor  = "white";
+                    gameBoardArr[j].classList = ("game-square no-pick");
                 }
             }
-            if(gameBoardArr[i].style.backgroundColor  != "gray")
+            if(gameBoardArr[i].classList.contains("locked")  == false)
             {
-                gameBoardArr[i].style.backgroundColor  = "red";
+                gameBoardArr[i].classList = ("game-square X-sel");
                 selectedTile = gameBoardArr[i];                  
             } 
         }
@@ -123,8 +123,8 @@ btnSubmit.addEventListener("click", () => {
     if(selectedTile != null)
     {
         // .classList.add('MyClass'); .remove .contains .toggle
-        selectedTile.classList.add("locked");
-        selectedTile.style.backgroundColor  = "gray";        
+        // selectedTile.classList.add("locked");
+        // selectedTile.style.backgroundColor  = "gray";        
         submitTurn();    
         selectedTile = null;
     }
@@ -188,7 +188,7 @@ socket.on('room data', (newDetails) => {
      console.log(myGame.board);
 
      // updatign UI
-    textMoves.textContent = (`${myGame.moves}/8`);
+    textMoves.textContent = (`${myGame.moves}/9`);
 
     for(let i = 0; i < gameBoardArr.length; i++) 
     {
@@ -197,11 +197,22 @@ socket.on('room data', (newDetails) => {
             // const tileContent = document.createElement("p");
             // tileContent.textContent = (`${myGame.board[i]}`);
             gameBoardArr[i].textContent = (`${myGame.board[i]}`);
-            
+            if(gameBoardArr[i].textContent == "O")
+            {
+                gameBoardArr[i].classList = ("game-square O-pick");
+            }
+            else if (gameBoardArr[i].textContent == "X")
+            {
+                gameBoardArr[i].classList = ("game-square X-pick");
+            }
+            gameBoardArr[i].classList.add("locked");
         }        
     }
 });
 
+socket.on('end game', () => {
+    console.log("game over");
+})
 
 
 

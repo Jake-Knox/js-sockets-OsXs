@@ -69,6 +69,23 @@ const updateRoom = (room) => {
   }
 }
 
+const checkForWin = (inputBoard) => {
+
+  const h1 = "";
+  const h2 = "";
+  const h3 = "";
+
+  const v1 = "";
+  const v2 = "";
+  const v3 = "";
+
+  const d1 = "";
+  const d2 = "";
+
+
+  
+
+}
 
 io.on('connection', (socket) => {
     console.log('user connected, id: ' + socket.id);
