@@ -188,13 +188,18 @@ socket.on('room data', (newDetails) => {
      console.log(myGame.board);
 
      // updatign UI
-    textMoves.textContent = (`${myGame.moves}/9`);
+    textMoves.textContent = (`${myGame.moves}/8`);
 
     for(let i = 0; i < gameBoardArr.length; i++) 
     {
-
+        if(myGame.board[i] != "")
+        {
+            // const tileContent = document.createElement("p");
+            // tileContent.textContent = (`${myGame.board[i]}`);
+            gameBoardArr[i].textContent = (`${myGame.board[i]}`);
+            
+        }        
     }
-
 });
 
 
