@@ -140,8 +140,40 @@ io.on('connection', (socket) => {
 
     socket.on('room data', (room) => {      
       // get actual room data
-      let roomData
       io.to(room).emit("room data", roomData);
+    });
+
+    socket.on('submit turn', (room, tileIndex) => {
+
+      console.log("server submit turn");
+      console.log(`${room} - ${tileIndex}`);
+
+      let user = socket.id;
+      
+      for(let i = 0; i < games.length; i++)
+      {
+        if(games[i].room == room)
+        {
+
+          if(user == games[i].p1)
+          {
+            games[i].board[tileIndex] = "O";
+            console.log(`P1 O on tile #${tileIndex}`)
+          }
+          else if (user == games[i].p2) 
+          {
+            games[i].board[tileIndex] = "X";
+            console.log(`P2 X on tile #${tileIndex}`)
+          }
+          else
+          {
+            console.log("ERROR: user does not match games info")
+          }        
+
+          games[i].moves += 1;
+          io.to(room).emit("room data", games[i]);          
+        }
+      }          
     });
 
     

@@ -149,6 +149,8 @@ h1{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+
+    margin-top: 1vh;
 }
 #btn-back{
     height: 50px;
@@ -156,9 +158,16 @@ h1{
     background-color: rgb(200, 115, 115);
 }
 #btn-submit{
-    height: 50px;
-    width: 150px;
+    height: 75px;
+    width: 100px;
     background-color: rgb(115, 200, 115);
+    border-radius: 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none; 
+    size: 2em;
 }
 
 #game-info{
