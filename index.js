@@ -69,52 +69,48 @@ const updateRoom = (room) => {
   }
 }
 
-const checkForWin = (inputBoard) => {
+const checkForWin = (room, inputBoard) => {
 
-  const h1 = inputBoard[0];
-  const h2 = inputBoard[0];
-  const h3 = inputBoard[0];
-
-  const v1 = inputBoard[0];
-  const v2 = inputBoard[0];
-  const v3 = inputBoard[0];
-
-  const d1 = inputBoard[0];
-  const d2 = inputBoard[0];
+  let winCondition = "";
 
   if(inputBoard[0] == inputBoard[1] && inputBoard[1] == inputBoard[2] && inputBoard[2] != "")
   {
-    console.log(`h1 win`);
+    winCondition =(`h1 win`);
   }
   else if(inputBoard[3] == inputBoard[4] && inputBoard[4] == inputBoard[5] && inputBoard[5] != "")
   {
-    console.log(`h2 win`);
+    winCondition =(`h2 win`);
   }
   else if(inputBoard[6] == inputBoard[7] && inputBoard[7] == inputBoard[8] && inputBoard[8] != "")
   {
-    console.log(`h3 win`);
+    winCondition =(`h3 win`);
   }
   if(inputBoard[0] == inputBoard[3] && inputBoard[3] == inputBoard[6] && inputBoard[6] != "")
   {
-    console.log(`v1 win`);
+    winCondition =(`v1 win`);
   }
   else if(inputBoard[1] == inputBoard[4] && inputBoard[4] == inputBoard[7] && inputBoard[7] != "")
   {
-    console.log(`v2 win`);
+    winCondition =(`v2 win`);
   }
   else if(inputBoard[2] == inputBoard[5] && inputBoard[5] == inputBoard[8] && inputBoard[8] != "")
   {
-    console.log(`v3 win`);
+    winCondition =(`v3 win`);
   }
   else if(inputBoard[0] == inputBoard[4] && inputBoard[4] == inputBoard[8] && inputBoard[8] != "")
   {
-    console.log(`d1 win`);
+    winCondition =(`d1 win`);
   }
   else if(inputBoard[2] == inputBoard[4] && inputBoard[4] == inputBoard[6] && inputBoard[6] != "")
   {
-    console.log(`d2 win`);
+    winCondition =(`d2 win`);
   }
 
+  if(winCondition != "")
+  {
+    console.log(winCondition);
+    io.to(room).emit('end game');
+  }
   
 }
 
@@ -193,8 +189,8 @@ io.on('connection', (socket) => {
 
     socket.on('submit turn', (room, tileIndex) => {
 
-      console.log("server submit turn");
-      console.log(`${room} - ${tileIndex}`);
+      // console.log("server submit turn");
+      // console.log(`${room} - ${tileIndex}`);
 
       let user = socket.id;
       
@@ -220,7 +216,7 @@ io.on('connection', (socket) => {
 
           games[i].moves += 1;
           io.to(room).emit("room data", games[i]);
-          checkForWin( games[i].board);          
+          checkForWin(room, games[i].board);          
         }
       }          
     });

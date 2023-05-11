@@ -17,6 +17,7 @@ const inputJoin = document.getElementById('form-join-input');
 const refreshGame = document.getElementById("btn-refresh");
 const activeGames = document.getElementById("active-games");
 
+const banner = document.getElementById("banner");
 const textP1 = document.getElementById("p1");
 const textMoves = document.getElementById("moves");
 const textP2 = document.getElementById("p2");
@@ -160,41 +161,44 @@ socket.on('get rooms', function(games) {
 });
 
 socket.on('update room', function(newDetails) {
-
     console.log("updating game details");
 
-    myGame = newDetails;
-
-    // console.log(newDetails[i].room)
-    // console.log(newDetails[i].p1)
-    // console.log(newDetails[i].p2)
-    // console.log(newDetails[i].moves)
-    // console.log(myGame.board);
+    myGame = newDetails;    
 
     textP1.textContent = (`P1: ${myGame.p1}`);
     textMoves.textContent = (`${myGame.moves}/9`);
     textP2.textContent = (`P2: ${myGame.p2}`);
+
+    textP1.style.border = ("1px solid red");
+
 });
 
 socket.on('room data', (newDetails) => {
     console.log("updating game from end turn");
 
     myGame = newDetails;
-
-    // console.log(newDetails[i].room)
-    // console.log(newDetails[i].p1)
-    // console.log(newDetails[i].p2)
-    // console.log(newDetails[i].moves)
-     console.log(myGame.board);
+    // console.log(myGame.board);
 
      // updatign UI
     textMoves.textContent = (`${myGame.moves}/9`);
+
+    let pTurn = (myGame.moves % 2);
+    if(pTurn == 0){
+        console.log("red border");
+        textP1.style.border = ("1px solid red");
+        textP2.style.border = ("none");
+    }
+    else if(pTurn == 1)
+    {
+        console.log("blue border");
+        textP2.style.border = ("1px solid blue");
+        textP1.style.border = ("none");
+    }
 
     for(let i = 0; i < gameBoardArr.length; i++) 
     {
         if(myGame.board[i] != "")
         {
-            // const tileContent = document.createElement("p");
             // tileContent.textContent = (`${myGame.board[i]}`);
             gameBoardArr[i].textContent = (`${myGame.board[i]}`);
             if(gameBoardArr[i].textContent == "O")
@@ -212,6 +216,27 @@ socket.on('room data', (newDetails) => {
 
 socket.on('end game', () => {
     console.log("game over");
+    let winner = myGame.p1;
+
+    // uses == 0 instead of 1 for p2 becuase moves(player turn)
+    // has already been incremented elsewhere
+    if(myGame.moves %2 == 0)
+    {
+        winner = myGame.p2;
+    } 
+    // console.log(`${winner} wins!`);
+
+    let winBanner = document.createElement("p");
+    winBanner.textContent = (`${winner} wins!`);
+    banner.appendChild(winBanner);
+
+    for(let i = 0; i< gameBoardArr.length; i++)
+    {
+        if(gameBoardArr[i].classList.contains("locked") == false)
+        {
+            gameBoardArr[i].classList.add("locked");
+        }        
+    }
 })
 
 
