@@ -71,20 +71,51 @@ const updateRoom = (room) => {
 
 const checkForWin = (inputBoard) => {
 
-  const h1 = "";
-  const h2 = "";
-  const h3 = "";
+  const h1 = inputBoard[0];
+  const h2 = inputBoard[0];
+  const h3 = inputBoard[0];
 
-  const v1 = "";
-  const v2 = "";
-  const v3 = "";
+  const v1 = inputBoard[0];
+  const v2 = inputBoard[0];
+  const v3 = inputBoard[0];
 
-  const d1 = "";
-  const d2 = "";
+  const d1 = inputBoard[0];
+  const d2 = inputBoard[0];
 
+  if(inputBoard[0] == inputBoard[1] && inputBoard[1] == inputBoard[2] && inputBoard[2] != "")
+  {
+    console.log(`h1 win`);
+  }
+  else if(inputBoard[3] == inputBoard[4] && inputBoard[4] == inputBoard[5] && inputBoard[5] != "")
+  {
+    console.log(`h2 win`);
+  }
+  else if(inputBoard[6] == inputBoard[7] && inputBoard[7] == inputBoard[8] && inputBoard[8] != "")
+  {
+    console.log(`h3 win`);
+  }
+  if(inputBoard[0] == inputBoard[3] && inputBoard[3] == inputBoard[6] && inputBoard[6] != "")
+  {
+    console.log(`v1 win`);
+  }
+  else if(inputBoard[1] == inputBoard[4] && inputBoard[4] == inputBoard[7] && inputBoard[7] != "")
+  {
+    console.log(`v2 win`);
+  }
+  else if(inputBoard[2] == inputBoard[5] && inputBoard[5] == inputBoard[8] && inputBoard[8] != "")
+  {
+    console.log(`v3 win`);
+  }
+  else if(inputBoard[0] == inputBoard[4] && inputBoard[4] == inputBoard[8] && inputBoard[8] != "")
+  {
+    console.log(`d1 win`);
+  }
+  else if(inputBoard[2] == inputBoard[4] && inputBoard[4] == inputBoard[6] && inputBoard[6] != "")
+  {
+    console.log(`d2 win`);
+  }
 
   
-
 }
 
 io.on('connection', (socket) => {
@@ -188,7 +219,8 @@ io.on('connection', (socket) => {
           }        
 
           games[i].moves += 1;
-          io.to(room).emit("room data", games[i]);          
+          io.to(room).emit("room data", games[i]);
+          checkForWin( games[i].board);          
         }
       }          
     });
